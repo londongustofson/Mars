@@ -6,8 +6,7 @@ import time
 from selenium import webdriver
 
 def init_browser():
-    executable_path = {"executable_path":"C:\chromedriver_win32\chromedriver"}
-    return Browser("chrome", **executable_path, headless = False)
+  
 
 def scrape():
     browser = init_browser()
@@ -36,14 +35,13 @@ def scrape():
     
     xpath = "//*[@id=\"page\"]/section[3]/div/ul/li[1]/a/div/div[2]/img"
 
-    #Use splinter to click on the mars featured image
-    #to bring the full resolution image
+
     results = browser.find_by_xpath(xpath)
     img = results[0]
     img.click()
     time.sleep(2)
     
-    #get image url using BeautifulSoup
+ 
     html_image = browser.html
     soup = bs(html_image, "html.parser")
     img_url = soup.find("img", class_="fancybox-image")["src"]
@@ -79,13 +77,13 @@ def scrape():
     url_hemisphere = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     browser.visit(url_hemisphere)
 
-    #Getting the base url
+ 
     hemisphere_base_url = "{0.scheme}://{0.netloc}/".format(urlsplit(url_hemisphere))
     hemisphere_img_urls = []
     hemisphere_img_urls
 
 
-    # #### Cerberus-Hemisphere-image-url
+
 
     hemisphere_img_urls = []
     results = browser.find_by_xpath( "//*[@id='product-section']/div[2]/div[1]/a/img").click()
@@ -96,15 +94,15 @@ def scrape():
     soup = bs(cerberus_image, "html.parser")
     cerberus_url = soup.find("img", class_="wide-image")["src"]
     cerberus_img_url = hemisphere_base_url + cerberus_url
-    #print(cerberus_img_url)
+ 
     cerberus_title = soup.find("h2",class_="title").text
-    #print(cerberus_title)
+   
     back_button = browser.find_by_xpath("//*[@id='splashy']/div[1]/div[1]/div[3]/section/a").click()
     cerberus = {"image title":cerberus_title, "image url": cerberus_img_url}
     hemisphere_img_urls.append(cerberus)
 
 
-    # #### Schiaparelli-Hemisphere-image-url
+
 
     results1 = browser.find_by_xpath( "//*[@id='product-section']/div[2]/div[2]/a/img").click()
     time.sleep(2)
@@ -114,15 +112,15 @@ def scrape():
     soup = bs(schiaparelli_image, "html.parser")
     schiaparelli_url = soup.find("img", class_="wide-image")["src"]
     schiaparelli_img_url = hemisphere_base_url + schiaparelli_url
-    #print(schiaparelli_img_url)
+   
     schiaparelli_title = soup.find("h2",class_="title").text
-    #print(schiaparelli_title)
+
     back_button = browser.find_by_xpath("//*[@id='splashy']/div[1]/div[1]/div[3]/section/a").click()
     schiaparelli = {"image title":schiaparelli_title, "image url": schiaparelli_img_url}
     hemisphere_img_urls.append(schiaparelli)
 
 
-    # #### Syrtis Major Hemisphere
+    # Syrtis Major Hemisphere
 
     results1 = browser.find_by_xpath( "//*[@id='product-section']/div[2]/div[3]/a/img").click()
     time.sleep(2)
@@ -132,15 +130,15 @@ def scrape():
     soup = bs(syrtis_major_image, "html.parser")
     syrtis_major_url = soup.find("img", class_="wide-image")["src"]
     syrtis_major_img_url = hemisphere_base_url + syrtis_major_url
-    #print(syrtis_major_img_url)
+    
     syrtis_major_title = soup.find("h2",class_="title").text
-    #print(syrtis_major_title)
+  
     back_button = browser.find_by_xpath("//*[@id='splashy']/div[1]/div[1]/div[3]/section/a").click()
     syrtis_major = {"image title":syrtis_major_title, "image url": syrtis_major_img_url}
     hemisphere_img_urls.append(syrtis_major)
 
 
-    # #### Valles Marineris Hemisphere
+    # Valles Marineris Hemisphere
 
     results1 = browser.find_by_xpath( "//*[@id='product-section']/div[2]/div[4]/a/img").click()
     time.sleep(2)
@@ -150,9 +148,9 @@ def scrape():
     soup = bs(valles_marineris_image, "html.parser")
     valles_marineris_url = soup.find("img", class_="wide-image")["src"]
     valles_marineris_img_url = hemisphere_base_url + syrtis_major_url
-    #print(valles_marineris_img_url)
+
     valles_marineris_title = soup.find("h2",class_="title").text
-    #print(valles_marineris_title)
+  
     back_button = browser.find_by_xpath("//*[@id='splashy']/div[1]/div[1]/div[3]/section/a").click()
     valles_marineris = {"image title":valles_marineris_title, "image url": valles_marineris_img_url}
     hemisphere_img_urls.append(valles_marineris)
